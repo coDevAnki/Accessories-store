@@ -1,13 +1,16 @@
-.custom-button{
-    padding:1rem;
-    color:white;
-    background-color:black;
-    font-size:1.2rem;
-   opacity:0.9;
-   font-weight: 800;
-    transition: 0.3s ease all;
+.custom-button {
+  padding: 1rem;
+  color: white;
+  background-color: black;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  font-weight: 800;
+  transition: 0.3s ease all;
+  border: none;
+  cursor: pointer;
 }
-.custom-button:hover{
-   background-color:white;
-   color:black;
+.custom-button:hover {
+  background-color: white;
+  color: black;
+  outline: none;
 }

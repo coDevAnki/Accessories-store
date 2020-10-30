@@ -1,6 +1,10 @@
-.form-container{
-    display:flex;
-    width:30vw;
-    flex-direction:column;
-    
+.form-container {
+  display: flex;
+  width: 30vw;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
 }
