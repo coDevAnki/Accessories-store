@@ -1,29 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
-import { auth } from "./firebase/firebaseUtils";
+import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import HomePage from "./pages/Homepage/HomePage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
+import { setUserAction } from "./redux/actions";
 
-const App = () => {
-  let [currentUser, setCurrentUser] = useState(null);
-
+const App = ({ setCurrentUser }) => {
   useEffect(() => {
-    let stteledAuth = auth.onAuthStateChanged((user) => {
-      if (user) {
-        let { displayName, email } = user;
-        setCurrentUser({ name: displayName, email: email });
-      } else setCurrentUser(null);
+    let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
+      console.log(userAuth);
+      if (userAuth) {
+        try {
+          let userRef = await createUserProfile(userAuth);
+          userRef.onSnapshot((snapShop) => {
+            setCurrentUser({
+              id: snapShop.id,
+              ...snapShop.data(),
+            });
+          });
+        } catch (error) {
+          console.log("error: ", error);
+        }
+      } else setCurrentUser(userAuth);
     });
 
-    return stteledAuth;
-  }, [currentUser]);
+    return setteledAuth;
+  }, []);
 
   return (
     <div>
-      <Header isSignedIn={!!currentUser} />
+      <Header />
+      {/* {currentUser?.email} */}
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
@@ -33,4 +44,8 @@ const App = () => {
   );
 };
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return { setCurrentUser: (user) => dispatch(setUserAction(user)) };
+};
+
+export default connect(null, mapDispatchToProps)(App);

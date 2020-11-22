@@ -1,9 +1,6 @@
-import cloudinary from "cloudinary-core";
 import React from "react";
 import MenuItem from "../MenuItem/MenuItem";
 import "./Directory.scss";
-
-const cloudinaryCore = new cloudinary.Cloudinary({ cloud_name: "codevanki" });
 
 let content = {
   Speaker: {
