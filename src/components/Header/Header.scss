@@ -5,12 +5,18 @@
   justify-content: space-between;
   margin-bottom: 50px;
   font-size: 1.5rem;
-
+  position: relative;
   .logo-container {
     height: 100%;
     width: 70px;
     padding: 10px;
     text-decoration: none;
+  }
+  .cart-logo-container {
+    width: 45px;
+    height: 45px;
+    margin: 10px;
+    cursor: pointer;
   }
 
   .options {

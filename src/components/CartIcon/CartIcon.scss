@@ -1,0 +1,15 @@
+.cart-logo {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .cart-amount {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 25%;
+    left: calc(25% + 5px);
+    text-decoration: none;
+    color: black;
+  }
+}
