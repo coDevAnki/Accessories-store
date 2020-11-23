@@ -9,3 +9,4 @@
 [1031/165230.716:ERROR:process_info.cc(551)] ReadProcessData failed
 [1031/165230.716:ERROR:process_info.cc(551)] ReadProcessData failed
 [1122/172018.712:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1123/094156.080:ERROR:crash_report_database_win.cc(457)] unexpected header

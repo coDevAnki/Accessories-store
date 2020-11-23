@@ -9,8 +9,19 @@
   border: none;
   cursor: pointer;
 }
+.inverted {
+  color: black;
+  background-color: white;
+}
 .custom-button:hover {
   background-color: white;
   color: black;
   outline: none;
+}
+.inverted:hover {
+  color: white;
+  background-color: black;
+}
+.custom-button:disabled {
+  cursor: default;
 }

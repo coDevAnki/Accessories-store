@@ -4,10 +4,9 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { applyMiddleware, createStore } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import logger from "redux-logger";
 import App from "./App";
 import rootReducer from "./redux/reducers";
-const middleWares = [logger];
+const middleWares = [];
 
 const store = createStore(
   rootReducer,

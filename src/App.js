@@ -8,6 +8,7 @@ import HomePage from "./pages/Homepage/HomePage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
 import { setUserAction } from "./redux/actions";
+import { selectUser } from "./selectors/userSelectors";
 
 const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
@@ -40,7 +41,9 @@ const App = ({ currentUser, setCurrentUser }) => {
         <Route path="/shop" component={ShopPage} />
         <Route
           path="/signin"
-          render={() => (currentUser ? <Redirect to="/" /> : SigninAndSignup)}
+          render={() =>
+            currentUser ? <Redirect to="/" /> : <SigninAndSignup />
+          }
         />
       </Switch>
     </div>
@@ -51,7 +54,7 @@ const mapDispatchToProps = (dispatch) => {
   return { setCurrentUser: (user) => dispatch(setUserAction(user)) };
 };
 const mapStateToProps = (state) => {
-  return { currentUser: state.user.currentUser };
+  return { currentUser: selectUser(state) };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
