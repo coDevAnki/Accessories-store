@@ -1,4 +1,5 @@
 import React from "react";
+import Carousal from "../Carousal/Carousal";
 import MenuItem from "../MenuItem/MenuItem";
 import "./Directory.scss";
 
@@ -38,7 +39,9 @@ const Directory = () => {
           backgroundImage: `url("https://res.cloudinary.com/codevanki/image/upload/v1601534107/images/Acc_category_fclnlm.webp")`,
         }}
       />
-
+      {/* <div className="landing-page">
+        <Carousal />
+      </div> */}
       <div className="directory-menu">
         {Object.values(content).map(({ id, ...otherProps }) => (
           <MenuItem id={id} {...otherProps} />

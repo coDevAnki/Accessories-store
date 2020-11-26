@@ -10,3 +10,8 @@
 [1031/165230.716:ERROR:process_info.cc(551)] ReadProcessData failed
 [1122/172018.712:ERROR:crash_report_database_win.cc(457)] unexpected header
 [1123/094156.080:ERROR:crash_report_database_win.cc(457)] unexpected header
+[1126/145832.424:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
+[1126/153802.786:ERROR:process_info.cc(359)] UncheckedAllocate
+[1126/153839.881:ERROR:process_info.cc(359)] UncheckedAllocate
+[1126/153840.150:ERROR:process_info.cc(359)] UncheckedAllocate
+[1126/153841.046:ERROR:process_info.cc(359)] UncheckedAllocate

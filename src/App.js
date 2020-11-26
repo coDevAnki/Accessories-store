@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header/Header";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
+import CheckoutPage from "./pages/Checkoutpage/CheckoutPage";
 import HomePage from "./pages/Homepage/HomePage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
@@ -13,7 +14,6 @@ import { selectUser } from "./selectors/userSelectors";
 const App = ({ currentUser, setCurrentUser }) => {
   useEffect(() => {
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
-      console.log(userAuth);
       if (userAuth) {
         try {
           let userRef = await createUserProfile(userAuth);
@@ -45,6 +45,7 @@ const App = ({ currentUser, setCurrentUser }) => {
             currentUser ? <Redirect to="/" /> : <SigninAndSignup />
           }
         />
+        <Route path="/checkout" component={CheckoutPage} />
       </Switch>
     </div>
   );

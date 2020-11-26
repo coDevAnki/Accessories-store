@@ -13,6 +13,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleWares))
 );
 
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
