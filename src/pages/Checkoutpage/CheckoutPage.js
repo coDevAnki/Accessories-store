@@ -9,7 +9,6 @@ import {
 import "./CheckoutPage.scss";
 
 const CheckoutPage = ({ cartItems, cartTotal }) => {
-  console.log(cartTotal);
   return (
     <div className="checkout_wrapper">
       <div className="checkout_header_container">

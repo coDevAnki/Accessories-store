@@ -1,4 +1,5 @@
 import addToCartAction from "./addToCartAction";
 import setUserAction from "./setUserAction";
 import toggleCartAction from "./toggleCartAction";
-export { setUserAction, toggleCartAction, addToCartAction };
+import setCartAction from "./setCartAction"
+export { setUserAction, setCartAction, toggleCartAction, addToCartAction };

@@ -9,7 +9,7 @@ import {
   selectCartCount,
   selectCartHidden,
 } from "../../selectors/cartSelectors";
-import { selectUser } from "../../selectors/userSelectors";
+import { userSelector } from "../../selectors/userSelectors";
 import CartDropdown from "../CartDropdown/CartDropdown";
 import CartIcon from "../CartIcon/CartIcon";
 import "./Header.scss";
@@ -48,7 +48,7 @@ const Header = ({ currentUser, hidden, totalCartItems, toggleCartAction }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectUser,
+  currentUser: userSelector,
   hidden: selectCartHidden,
   totalCartItems: selectCartCount,
 });

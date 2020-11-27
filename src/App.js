@@ -1,17 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { createStructuredSelector } from "reselect";
 import "./App.css";
 import Header from "./components/Header/Header";
+import useLocalStorage from "./custom-hooks/useLocalStorage";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import CheckoutPage from "./pages/Checkoutpage/CheckoutPage";
 import HomePage from "./pages/Homepage/HomePage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
-import { setUserAction } from "./redux/actions";
+import { setCartAction, setUserAction } from "./redux/actions";
+import { selectCartItems } from "./selectors/cartSelectors";
 import { selectUser } from "./selectors/userSelectors";
 
-const App = ({ currentUser, setCurrentUser }) => {
+const App = ({ user, setCurrentUser, setCart, cartItems }) => {
+  const [storedCart, setStoredCart] = useLocalStorage(
+    "accessories_cart",
+    cartItems
+  );
+  const [firstRender, setFirstRender] = useState(true);
   useEffect(() => {
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -28,21 +36,35 @@ const App = ({ currentUser, setCurrentUser }) => {
         }
       } else setCurrentUser(userAuth);
     });
-
     return setteledAuth;
   }, []);
+
+  useEffect(() => {
+    if (!user.currentUser) {
+      setCart([]);
+    }
+    if (user.currentUser) {
+      setCart(storedCart);
+    }
+    return () => {
+      setFirstRender(false);
+    };
+  }, [user.currentUser]);
+
+  useEffect(() => {
+    if (!firstRender && user.currentUser) setStoredCart(cartItems);
+  }, [cartItems]);
 
   return (
     <div>
       <Header />
-      {/* {currentUser?.email} */}
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/shop" component={ShopPage} />
         <Route
           path="/signin"
           render={() =>
-            currentUser ? <Redirect to="/" /> : <SigninAndSignup />
+            user.currentUser ? <Redirect to="/" /> : <SigninAndSignup />
           }
         />
         <Route path="/checkout" component={CheckoutPage} />
@@ -51,11 +73,20 @@ const App = ({ currentUser, setCurrentUser }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return { setCurrentUser: (user) => dispatch(setUserAction(user)) };
-};
-const mapStateToProps = (state) => {
-  return { currentUser: selectUser(state) };
-};
+const mapStateToProps = createStructuredSelector({
+  user: selectUser,
+  cartItems: selectCartItems,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setCurrentUser: (user) => dispatch(setUserAction(user)),
+//     setCart: (cart)=> dispatch(setCartAction(cart))
+
+//   };
+// };
+
+export default connect(mapStateToProps, {
+  setCurrentUser: setUserAction,
+  setCart: setCartAction,
+})(App);
