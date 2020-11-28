@@ -59,15 +59,19 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/shop" component={ShopPage} />
+        <Route exact path="/" render={() => <HomePage />} />
         <Route
+          path="/shop"
+          render={({ match }) => <ShopPage match={match} />}
+        />
+        <Route
+          exact
           path="/signin"
           render={() =>
             user.currentUser ? <Redirect to="/" /> : <SigninAndSignup />
           }
         />
-        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/checkout" render={() => <CheckoutPage />} />
       </Switch>
     </div>
   );
@@ -77,14 +81,6 @@ const mapStateToProps = createStructuredSelector({
   user: selectUser,
   cartItems: selectCartItems,
 });
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     setCurrentUser: (user) => dispatch(setUserAction(user)),
-//     setCart: (cart)=> dispatch(setCartAction(cart))
-
-//   };
-// };
 
 export default connect(mapStateToProps, {
   setCurrentUser: setUserAction,
