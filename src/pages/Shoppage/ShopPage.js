@@ -4,9 +4,9 @@ import CollectionOverview from "../../components/CollectionOverview/CollectionOv
 import CollectionPage from "../CollectionPage/CollectionPage";
 import "./ShopPage.scss";
 
-const ShopPage = ({ match: { path } }) => {
+const ShopPage = ({ match: { path } , doTransition}) => {
   return (
-    <div className="shop-page">
+    <div className={`shop-page ${doTransition ? "reveal" : ""}`}>
       <Route exact path={path} component={CollectionOverview} />
       <Route
         path={`${path}/:collectionId`}

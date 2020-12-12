@@ -2,6 +2,19 @@ body {
   font-family: "Open Sans Condensed";
   padding: 20px 60px;
 }
+
 * {
   box-sizing: border-box;
+}
+
+.reveal {
+  animation: revealanimation 1s ease-in-out;
+}
+@keyframes revealanimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

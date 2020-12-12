@@ -59,10 +59,10 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" render={() => <HomePage />} />
+        <Route exact path="/" render={() => <HomePage doTransition={true} />} />
         <Route
           path="/shop"
-          render={({ match }) => <ShopPage match={match} />}
+          render={({ match }) => <ShopPage  match={match} doTransition={true}/>}
         />
         <Route
           exact

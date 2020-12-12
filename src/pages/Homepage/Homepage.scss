@@ -4,3 +4,10 @@
   align-items: center;
   padding: 20px 80px;
 }
+.slide-in {
+  transform: translateY(200px);
+  transition: 1.5s ease all;
+}
+.active {
+  transform: none;
+}
