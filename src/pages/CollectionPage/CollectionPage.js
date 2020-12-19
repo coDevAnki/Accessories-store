@@ -6,7 +6,7 @@ import "./CollectionPage.scss";
 
 const CollectionPage = ({ collection }) => {
   console.log(collection);
-  return (
+  return collection ? (
     <div>
       <div className="collection-page">
         <h2 className="title">{collection.title}</h2>
@@ -19,7 +19,7 @@ const CollectionPage = ({ collection }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 const mapStateToProps = (state, ownProps) => ({

@@ -4,7 +4,6 @@ import CollectionItem from "../Collectionitem/CollectionItem";
 import "./PreviewCollection.scss";
 
 const PreviewCollection = ({ title, items, routeName }) => {
-  console.log(routeName);
   return (
     <div className="collection-preview">
       <h1 className="title">{title.toUpperCase()}</h1>
@@ -15,7 +14,7 @@ const PreviewCollection = ({ title, items, routeName }) => {
             <CollectionItem key={item.id} item={item} />
           ))}
       </div>
-      <Link to={routeName} className="view_all_link">
+      <Link to={`shop/${routeName}`} className="view_all_link">
         VIEW ALL
       </Link>
     </div>

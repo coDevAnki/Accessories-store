@@ -12,6 +12,7 @@ import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
 import { setCartAction, setUserAction } from "./redux/actions";
 import { selectCartItems } from "./selectors/cartSelectors";
+// import { selectShop } from "./selectors/shopSelector";
 import { selectUser } from "./selectors/userSelectors";
 
 const App = ({ user, setCurrentUser, setCart, cartItems }) => {
@@ -20,15 +21,20 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
     cartItems
   );
   const [firstRender, setFirstRender] = useState(true);
+
   useEffect(() => {
+    // let collectionData = shopData.map(({ title, items }) => ({ title, items }));
+
+    // addCollectionsAndItems("shopCollection", collectionData);
+
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         try {
           let userRef = await createUserProfile(userAuth);
-          userRef.onSnapshot((snapShop) => {
+          userRef.onSnapshot((snapShot) => {
             setCurrentUser({
-              id: snapShop.id,
-              ...snapShop.data(),
+              id: snapShot.id,
+              ...snapShot.data(),
             });
           });
         } catch (error) {
@@ -62,7 +68,7 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
         <Route exact path="/" render={() => <HomePage doTransition={true} />} />
         <Route
           path="/shop"
-          render={({ match }) => <ShopPage  match={match} doTransition={true}/>}
+          render={({ match }) => <ShopPage match={match} doTransition={true} />}
         />
         <Route
           exact

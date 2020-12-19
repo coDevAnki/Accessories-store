@@ -27,10 +27,10 @@ export const createUserProfile = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   let userRef = firestore.doc(`users/${userAuth.uid}`);
-  let { displayName, email } = userAuth;
 
   let snapshot = await userRef.get();
   if (!snapshot.exists) {
+    let { displayName, email } = userAuth;
     let createdAt = new Date();
     let data = { displayName, email, createdAt, ...additionalData };
 
@@ -41,6 +41,48 @@ export const createUserProfile = async (userAuth, additionalData) => {
     }
   }
   return userRef;
+};
+
+export const addCollectionsAndItems = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+
+  console.log(batch);
+  objectsToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    console.log(newDocRef);
+    batch.set(newDocRef, obj);
+  });
+
+  batch
+    .commit()
+    .then((data) => {
+      console.log("done");
+    })
+    .catch((e) => {
+      console.log("ERR", e);
+    });
+};
+
+export const convertCollectionSnapshopToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+  const collectionMap = transformedCollection.reduce(
+    (accumulator, collection) => {
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    },
+    {}
+  );
+
+  return collectionMap;
 };
 
 export const siginWithGoogle = () => auth.signInWithPopup(provider);
