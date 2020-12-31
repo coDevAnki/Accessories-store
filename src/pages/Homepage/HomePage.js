@@ -5,7 +5,7 @@ import useOnSreen from "../../custom-hooks/useOnScreen";
 import "./Homepage.scss";
 import images from "./images";
 
-const HomePage = ({ doTransition }) => {
+const HomePage = () => {
   const [active, setActive] = useState(false);
   const [visible, setRef] = useOnSreen({ rootMargin: "-100px" });
   useEffect(() => {
@@ -13,7 +13,7 @@ const HomePage = ({ doTransition }) => {
   }, [visible]);
 
   return (
-    <div className={`homepage ${doTransition ? "reveal" : ""}`}>
+    <div className="homepage reveal">
       <Carousal
         allImages={images}
         // autoplay={5}

@@ -3,7 +3,7 @@ import "./Carousal.scss";
 import Slider from "./Slider";
 export const data = [
   "https://res.cloudinary.com/codevanki/image/upload/v1603776820/images/Status-Audio_IEM-2X_Gunmetal_Main-02_900x_nailnc.jpg",
-
+  "https://res.cloudinary.com/codevanki/image/upload/v1609042569/images/STATUS_about-flat-products_1400x_m3s24v.jpg",
   "https://res.cloudinary.com/codevanki/image/upload/v1606571836/images/Headphone-Zone-Skullcandy-Ink_d_-Wireless-Earbuds-Pastel-Pink-1160-1160-1_2000x_e8pazy.jpg",
 
   "https://res.cloudinary.com/codevanki/image/upload/v1603774374/images/BTS-2X_Storm_Right-Ear-1_On-Gray_900x_jlanun.jpg",

@@ -13,8 +13,8 @@ import "./CartDropdown.scss";
 
 const CartDropdown = ({ cartItems, isHidden, toggleCartAction }) => {
   const history = useHistory();
+  // const cartRef = useOutsideClick(toggleCartAction);
   const cartRef = useRef();
-
   useEffect(() => {
     const onBodyClick = (e) => {
       if (cartRef.current.contains(e.target)) return;
@@ -26,7 +26,6 @@ const CartDropdown = ({ cartItems, isHidden, toggleCartAction }) => {
       document.removeEventListener("click", onBodyClick);
     };
   }, []);
-
   const goToCheckout = () => {
     history.push("/checkout");
     toggleCartAction();

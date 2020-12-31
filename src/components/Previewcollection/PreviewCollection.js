@@ -11,10 +11,10 @@ const PreviewCollection = ({ title, items, routeName }) => {
         {items
           .filter((item, index) => index < 4)
           .map((item) => (
-            <CollectionItem key={item.id} item={item} />
+            <CollectionItem key={item.id} category={title} item={item} />
           ))}
       </div>
-      <Link to={`shop/${routeName}`} className="view_all_link">
+      <Link to={`/shop/${routeName}`} className="view_all_link">
         VIEW ALL
       </Link>
     </div>

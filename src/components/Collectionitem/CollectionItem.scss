@@ -11,35 +11,25 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    margin-bottom: 5px;
-  }
-
-  .collection-footer {
-    width: 100%;
-    height: 5%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 18px;
-
-    .name {
-      width: 90%;
-      margin-bottom: 15px;
-    }
-
-    .price {
-      width: 10%;
-    }
+    margin-bottom: 15px;
   }
   .custom-button {
     position: absolute;
-    bottom: 10%;
+    bottom: 40%;
     opacity: 0;
+    z-index: 10;
     transition: 0.5s ease opacity;
   }
 }
-
 .collection-item:hover {
   .custom-button {
     opacity: 0.8;
   }
+}
+.link {
+  color: pink;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  position: absolute;
 }

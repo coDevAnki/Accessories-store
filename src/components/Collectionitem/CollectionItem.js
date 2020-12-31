@@ -1,13 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { addToCartAction } from "../../redux/actions";
 import Button from "../Button/Button";
+import ItemInfoFooter from "../ItemInfoFooter/ItemInfoFooter";
 import "./CollectionItem.scss";
 
-const CollectionItem = ({ item, addToCart, cartItems }) => {
+const CollectionItem = ({
+  addToCart,
+  forPage,
+  item,
+  category,
+  addedInCart,
+}) => {
   const { name, imageUrl, price, id } = item;
-  const addedInCart = cartItems.some((cartItem) => cartItem.id === id);
-
   return (
     <div className="collection-item">
       <div
@@ -17,10 +23,8 @@ const CollectionItem = ({ item, addToCart, cartItems }) => {
           backgroundColor: "#f1f1f1",
         }}
       />
-      <div className="collection-footer">
-        <span className="name">{name}</span>
-        <span className="price">{price}</span>
-      </div>
+      <Link to={`/shop/${category}/${name}_${id}`} className="link"></Link>
+      <ItemInfoFooter forPage={forPage} name={name} price={price} />
       {addedInCart ? (
         <Button inverted onClick={() => addToCart(item)}>
           IN YOUR CART
@@ -34,6 +38,7 @@ const CollectionItem = ({ item, addToCart, cartItems }) => {
     </div>
   );
 };
+
 const mapStateToProps = ({ cart: { cartItems } }) => {
   return { cartItems };
 };

@@ -7,26 +7,28 @@ import Header from "./components/Header/Header";
 import useLocalStorage from "./custom-hooks/useLocalStorage";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import CheckoutPage from "./pages/Checkoutpage/CheckoutPage";
+import CollectionPage from "./pages/Collectionpage/CollectionPage";
 import HomePage from "./pages/Homepage/HomePage";
+import ItemPage from "./pages/Itempage/ItemPage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
-import { setCartAction, setUserAction } from "./redux/actions";
+import { setCartAction, setUserAction, updateCollection } from "./redux/actions";
 import { selectCartItems } from "./selectors/cartSelectors";
-// import { selectShop } from "./selectors/shopSelector";
 import { selectUser } from "./selectors/userSelectors";
 
-const App = ({ user, setCurrentUser, setCart, cartItems }) => {
+const App = ({ user, setCurrentUser, setCart, cartItems, updateCollection }) => {
   const [storedCart, setStoredCart] = useLocalStorage(
     "accessories_cart",
     cartItems
   );
+  const [storedShop]= useLocalStorage(
+    "accessories_shop"
+  )
   const [firstRender, setFirstRender] = useState(true);
-
+ 
   useEffect(() => {
-    // let collectionData = shopData.map(({ title, items }) => ({ title, items }));
-
-    // addCollectionsAndItems("shopCollection", collectionData);
-
+    console.log(storedShop)
+    if(storedShop) updateCollection(storedShop);
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         try {
@@ -65,11 +67,7 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
     <div>
       <Header />
       <Switch>
-        <Route exact path="/" render={() => <HomePage doTransition={true} />} />
-        <Route
-          path="/shop"
-          render={({ match }) => <ShopPage match={match} doTransition={true} />}
-        />
+        <Route exact path="/" render={() => <HomePage />} />
         <Route
           exact
           path="/signin"
@@ -78,6 +76,21 @@ const App = ({ user, setCurrentUser, setCart, cartItems }) => {
           }
         />
         <Route path="/checkout" render={() => <CheckoutPage />} />
+        <Route
+          exact
+          path="/shop"
+          render={({ match }) => <ShopPage match={match} />}
+        />
+        <Route
+          exact
+          path="/shop/:category"
+          render={({ match: { params } }) => <CollectionPage {...params} />}
+        />
+        <Route
+          path="/shop/:category/:nameId"
+          // render={({match: { params }  }) => <ItemPage params={params} />}
+          render={(props) => <ItemPage {...props} />}
+        />
       </Switch>
     </div>
   );
@@ -91,4 +104,5 @@ const mapStateToProps = createStructuredSelector({
 export default connect(mapStateToProps, {
   setCurrentUser: setUserAction,
   setCart: setCartAction,
+  updateCollection:updateCollection
 })(App);

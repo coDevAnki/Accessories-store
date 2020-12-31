@@ -4,16 +4,20 @@ import CollectionItem from "../../components/Collectionitem/CollectionItem";
 import { selectCollection } from "../../selectors/shopSelector";
 import "./CollectionPage.scss";
 
-const CollectionPage = ({ collection }) => {
-  console.log(collection);
+const CollectionPage = ({ collection, category }) => {
   return collection ? (
-    <div>
-      <div className="collection-page">
+    <div className="reveal">
+      <div onClick={() => {}}>
         <h2 className="title">{collection.title}</h2>
         <div className="items">
           <div className="item-area">
             {collection.items.map((item) => (
-              <CollectionItem key={item.id} item={item} />
+              <CollectionItem
+                forPage="shop"
+                key={item.id}
+                item={item}
+                category={category}
+              />
             ))}
           </div>
         </div>
@@ -22,8 +26,12 @@ const CollectionPage = ({ collection }) => {
   ) : null;
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.collectionId)(state),
-});
+const mapStateToProps = (state, { category }) => {
+  if (!category) return state;
+  return {
+    category,
+    collection: selectCollection(category)(state),
+  };
+};
 
 export default connect(mapStateToProps)(CollectionPage);
