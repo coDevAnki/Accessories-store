@@ -22,3 +22,4 @@
 [1130/193845.416:ERROR:process_info.cc(359)] UncheckedAllocate
 [1203/083239.845:ERROR:directory_reader_win.cc(43)] FindFirstFile: The system cannot find the path specified. (0x3)
 [1212/091152.892:ERROR:crash_report_database_win.cc(455)] unexpected header
+[0213/191420.780:ERROR:filesystem_win.cc(148)] DeleteFile C:\Users\Ankita Mondal\AppData\Local\Google\Chrome\User Data\Crashpad\reports\b5da573f-bb9b-48c1-a492-fcea8c7414d4.dmp: The process cannot access the file because it is being used by another process. (0x20)

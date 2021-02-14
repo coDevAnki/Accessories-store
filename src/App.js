@@ -3,32 +3,42 @@ import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import "./App.css";
+import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import useLocalStorage from "./custom-hooks/useLocalStorage";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
 import CheckoutPage from "./pages/Checkoutpage/CheckoutPage";
 import CollectionPage from "./pages/Collectionpage/CollectionPage";
+import ContactPage from "./pages/Contactpage/ContactPage";
 import HomePage from "./pages/Homepage/HomePage";
 import ItemPage from "./pages/Itempage/ItemPage";
 import ShopPage from "./pages/Shoppage/ShopPage";
 import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
-import { setCartAction, setUserAction, updateCollection } from "./redux/actions";
+import {
+  setCartAction,
+  setUserAction,
+  updateCollection,
+} from "./redux/actions";
 import { selectCartItems } from "./selectors/cartSelectors";
 import { selectUser } from "./selectors/userSelectors";
 
-const App = ({ user, setCurrentUser, setCart, cartItems, updateCollection }) => {
+const App = ({
+  user,
+  setCurrentUser,
+  setCart,
+  cartItems,
+  updateCollection,
+}) => {
   const [storedCart, setStoredCart] = useLocalStorage(
     "accessories_cart",
     cartItems
   );
-  const [storedShop]= useLocalStorage(
-    "accessories_shop"
-  )
+  const [storedShop] = useLocalStorage("accessories_shop");
   const [firstRender, setFirstRender] = useState(true);
- 
+
   useEffect(() => {
-    console.log(storedShop)
-    if(storedShop) updateCollection(storedShop);
+    console.log(storedShop);
+    if (storedShop) updateCollection(storedShop);
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         try {
@@ -88,10 +98,11 @@ const App = ({ user, setCurrentUser, setCart, cartItems, updateCollection }) => 
         />
         <Route
           path="/shop/:category/:nameId"
-          // render={({match: { params }  }) => <ItemPage params={params} />}
-          render={(props) => <ItemPage {...props} />}
+          render={({ match: { params } }) => <ItemPage params={params} />}
         />
+        <Route path="/contact" render={() => <ContactPage />} />
       </Switch>
+      <Footer />
     </div>
   );
 };
@@ -104,5 +115,5 @@ const mapStateToProps = createStructuredSelector({
 export default connect(mapStateToProps, {
   setCurrentUser: setUserAction,
   setCart: setCartAction,
-  updateCollection:updateCollection
+  updateCollection: updateCollection,
 })(App);

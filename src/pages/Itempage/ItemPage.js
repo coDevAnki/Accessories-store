@@ -25,11 +25,7 @@ const ItemPage = ({ item, category, addToCart, shop }) => {
     </div>
   );
 };
-const mapStateToProps = (state, props) => {
-  console.log(props);
-  // let { category, nameId } = params;
-  let { category, nameId } = props.match.params;
-
+const mapStateToProps = (state, {params: { category, nameId }} ) => {
   if (!category || !nameId) {
     return state;
   }
