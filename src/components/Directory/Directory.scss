@@ -1,19 +1,7 @@
-.landing-page {
-  width: calc(100vw - 3em);
-  height: 100vh;
-  overflow: hidden;
-  background-repeat: no-repeat;
-}
 .directory-menu {
-  margin: 5rem auto;
+  margin: 10rem auto;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-}
-.landing-page2 {
-  width: calc(100vw - 3em);
-  height: 50vh;
-  overflow: hidden;
-  background-repeat: no-repeat;
+  justify-content: center;
 }

@@ -2,13 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // padding: 20px 80px;
 }
-
 .stories_container {
   width: 100%;
   display: grid;
-  padding: 1rem; 
+  padding: 1rem;
   grid-template-columns: repeat(3, minmax(200px, 1fr));
   grid-template-rows: repeat(13, 100px);
   gap: 2rem;

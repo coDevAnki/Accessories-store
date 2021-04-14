@@ -15,7 +15,7 @@ const CollectionItem = ({
 }) => {
   const { name, imageUrl, price, id } = item;
   return (
-    <div className="collection-item">
+    <div className={`collection-item ${forPage}-wrapper`}>
       <div
         className="image"
         style={{

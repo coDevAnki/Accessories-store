@@ -1,0 +1,31 @@
+:root {
+  font-size: 10px;
+  --white: rgb(255, 255, 255);
+  --lightest-grey: rgb(241, 241, 241);
+  --light-grey: rgb(150, 150, 150);
+  --dark-grey: rgb(74, 74, 74);
+  --black: rgb(20, 20, 20);
+}
+body {
+  font-family: "Open Sans Condensed";
+  font-size: 2rem;
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+a {
+  color: var(--black);
+}
+.reveal {
+  animation: revealanimation 1s ease-in-out;
+}
+@keyframes revealanimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

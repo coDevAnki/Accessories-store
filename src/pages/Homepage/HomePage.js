@@ -11,7 +11,7 @@ const HomePage = () => {
       <Carousal
         allImages={images}
         // autoplay={5}
-        active={1}
+        active={3}
       />
       <Directory />
 

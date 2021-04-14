@@ -23,14 +23,13 @@
 .slider_img {
   min-width: 100vw;
   height: 90vh;
-  object-fit: cover;
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    background-color: lavender;
+  }
 }
-.slider_img img {
-  height: 100%;
-  width: 100%;
-  background-color: lavender;
-}
-
 .controller {
   position: absolute;
   z-index: 100;

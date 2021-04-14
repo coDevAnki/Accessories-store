@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import "./App.css";
+import "./App.scss";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import LoadingSoundbar from "./components/LoadingSoundbar/LoadingSoundbar";
 import useLocalStorage from "./custom-hooks/useLocalStorage";
 import { auth, createUserProfile } from "./firebase/firebaseUtils";
-import CheckoutPage from "./pages/Checkoutpage/CheckoutPage";
-import CollectionPage from "./pages/Collectionpage/CollectionPage";
-import ContactPage from "./pages/Contactpage/ContactPage";
-import HomePage from "./pages/Homepage/HomePage";
-import ItemPage from "./pages/Itempage/ItemPage";
-import ShopPage from "./pages/Shoppage/ShopPage";
-import SigninAndSignup from "./pages/SigninAndSignuppage/SigninAndSignup";
 import {
   setCartAction,
   setUserAction,
@@ -21,6 +15,18 @@ import {
 } from "./redux/actions";
 import { selectCartItems } from "./selectors/cartSelectors";
 import { selectUser } from "./selectors/userSelectors";
+
+const CheckoutPage = lazy(() => import("./pages/Checkoutpage/CheckoutPage"));
+const CollectionPage = lazy(() =>
+  import("./pages/Collectionpage/CollectionPage")
+);
+const ContactPage = lazy(() => import("./pages/Contactpage/ContactPage"));
+const HomePage = lazy(() => import("./pages/Homepage/HomePage"));
+const ItemPage = lazy(() => import("./pages/Itempage/ItemPage"));
+const ShopPage = lazy(() => import("./pages/Shoppage/ShopPage"));
+const SigninAndSignup = lazy(() =>
+  import("./pages/SigninAndSignuppage/SigninAndSignup")
+);
 
 const App = ({
   user,
@@ -37,7 +43,6 @@ const App = ({
   const [firstRender, setFirstRender] = useState(true);
 
   useEffect(() => {
-    console.log(storedShop);
     if (storedShop) updateCollection(storedShop);
     let setteledAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -74,36 +79,41 @@ const App = ({
   }, [cartItems]);
 
   return (
-    <div>
+    <>
       <Header />
       <Switch>
-        <Route exact path="/" render={() => <HomePage />} />
-        <Route
-          exact
-          path="/signin"
-          render={() =>
-            user.currentUser ? <Redirect to="/" /> : <SigninAndSignup />
-          }
-        />
-        <Route path="/checkout" render={() => <CheckoutPage />} />
-        <Route
-          exact
-          path="/shop"
-          render={({ match }) => <ShopPage match={match} />}
-        />
-        <Route
-          exact
-          path="/shop/:category"
-          render={({ match: { params } }) => <CollectionPage {...params} />}
-        />
-        <Route
-          path="/shop/:category/:nameId"
-          render={({ match: { params } }) => <ItemPage params={params} />}
-        />
-        <Route path="/contact" render={() => <ContactPage />} />
+        <Suspense fallback={<LoadingSoundbar />}>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/signin">
+            {user.currentUser ? <Redirect to="/" /> : <SigninAndSignup />}
+          </Route>
+
+          <Route path="/checkout">
+            <CheckoutPage />
+          </Route>
+          <Route
+            exact
+            path="/shop"
+            render={({ match }) => <ShopPage match={match} />}
+          />
+          <Route
+            exact
+            path="/shop/:category"
+            render={({ match: { params } }) => <CollectionPage {...params} />}
+          />
+          <Route
+            path="/shop/:category/:nameId"
+            render={({ match: { params } }) => <ItemPage params={params} />}
+          />
+          <Route path="/contact">
+            <ContactPage />
+          </Route>
+        </Suspense>
       </Switch>
       <Footer />
-    </div>
+    </>
   );
 };
 

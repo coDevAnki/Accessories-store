@@ -1,21 +1,27 @@
 .collection-footer {
   width: 100%;
-  display: flex;
   font-size: 1.2rem;
-  justify-content: space-around;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
-
+.preview {
+  .name {
+    font-size: 1.5rem;
+    margin-bottom: 0.5em;
+  }
+  .price {
+    font-size: 1rem;
+  }
+}
 .shop {
   width: 100%;
   background-color: rgb(120, 120, 120);
-  color:white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  color: white;
   margin-bottom: 30px;
-  padding: .6rem;
+  padding: 0.6rem;
   .name {
     font-size: 1.5rem;
     font-style: italic;
