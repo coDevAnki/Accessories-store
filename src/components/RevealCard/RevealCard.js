@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import useOnSreen from "../../custom-hooks/useOnScreen";
 import "./RevealCard.scss";
 
-const RevealCard = ({ children }) => {
+const RevealCard = ({ options = { rootMargin: "-80px" }, children }) => {
   const [active, setActive] = useState(false);
-  const [visible, setRef] = useOnSreen({ rootMargin: "-80px" });
+  const [visible, setRef] = useOnSreen(options);
   useEffect(() => {
     setActive(visible);
   }, [visible]);

@@ -1,19 +1,7 @@
-import React,{useState, useEffect, useRef} from "react";
+import React, { useEffect, useRef, useState } from "react";
+import useOnScreen from "../../custom-hooks/useOnScreen";
 import "./Carousal.scss";
-import Slider from "./Slider"
-export const data = [
-  "https://res.cloudinary.com/codevanki/image/upload/v1603776820/images/Status-Audio_IEM-2X_Gunmetal_Main-02_900x_nailnc.jpg",
-  "https://res.cloudinary.com/codevanki/image/upload/v1609042569/images/STATUS_about-flat-products_1400x_m3s24v.jpg",
-  "https://res.cloudinary.com/codevanki/image/upload/v1606571836/images/Headphone-Zone-Skullcandy-Ink_d_-Wireless-Earbuds-Pastel-Pink-1160-1160-1_2000x_e8pazy.jpg",
-
-  "https://res.cloudinary.com/codevanki/image/upload/v1603774374/images/BTS-2X_Storm_Right-Ear-1_On-Gray_900x_jlanun.jpg",
-
-  "https://res.cloudinary.com/codevanki/image/upload/v1603777075/images/blue1_xxtftp.png",
-
-  "https://res.cloudinary.com/codevanki/image/upload/v1603777281/images/Blue-Red-1_1024x1024_i3nekw.png",
-
-  "https://res.cloudinary.com/codevanki/image/upload/v1603777517/images/Pink1_b89a069e-3db2-458a-8aa5-75229b819cf4_1024x1024_o6f88t.png",
-];
+import Slider from "./Slider";
 
 const getPrev = (current, total) => {
   return (current - 1 + total) % total;
@@ -22,76 +10,108 @@ const getNext = (current, total) => {
   return (current + 1) % total;
 };
 
-const Carousal = ({ allImages = data, active, autoplay = false }) => {
- 
-    const [activeIndex, setActiveIndex] = useState(active || 0);
-    const [transform, setTransform] = useState({
-      translateX: -100,
-      transition: 0,
-    });
+const Carousal = ({
+  allImages,
+  active = 0,
+  autoplay = false,
+  slidingSpeed = 1,
+}) => {
+  const [activeIndex, setActiveIndex] = useState(active);
+  const [transform, setTransform] = useState({
+    translateX: -100,
+    transition: 0,
+  });
 
-    const neededImages = () => {
-      let prev = getPrev(activeIndex, allImages.length);
-      let next = getNext(activeIndex, allImages.length);
-      return [allImages[prev], allImages[activeIndex], allImages[next]];
-    };
+  const [visible, elRef] = useOnScreen({}, false);
+  const btnLeft = useRef();
+  const btnRight = useRef();
 
-    const handleLeft = (e) => {
-      if (e) e.preventDefault();
-      setTransform({ translateX: 0, transition: 1 });
-      setTimeout(() => {
-    setActiveIndex(getPrev(activeIndex, allImages.length));
-      }, 1000);
-    };
+  const switchBtns = (boolean) => {
+    if (btnLeft.current) {
+      btnLeft.current.disabled = boolean;
+    }
+    if (btnRight.current) {
+      btnRight.current.disabled = boolean;
+    }
+  };
+  const neededImages = () => {
+    let prev = getPrev(activeIndex, allImages.length);
+    let next = getNext(activeIndex, allImages.length);
+    return [allImages[prev], allImages[activeIndex], allImages[next]];
+  };
 
-    const handleRight = (e) => {
-      if (e) e.preventDefault();
-      setTransform({ translateX: -200, transition: 1 });
-      setTimeout(() => {
-        setActiveIndex(getNext(activeIndex, allImages.length));
-      }, 1000);
-    };
+  const handleLeft = (e) => {
+    if (e && typeof e.preventDefault === "function") e.preventDefault();
+    if (btnLeft.current.disabled) return;
+    setTransform({ translateX: 0, transition: slidingSpeed });
+    switchBtns(true);
+    setTimeout(() => {
+      setActiveIndex(getPrev(activeIndex, allImages.length));
+    }, slidingSpeed * 1000);
+  };
 
-    useEffect(() => {
-      setTransform({ translateX: -100, transition: 0 });
-    }, [activeIndex]);
+  const handleRight = (e) => {
+    if (e && typeof e.preventDefault === "function") e.preventDefault();
+    if (btnRight.current.disabled) return;
+    setTransform({ translateX: -200, transition: slidingSpeed });
+    switchBtns(true);
+    setTimeout(() => {
+      setActiveIndex(getNext(activeIndex, allImages.length));
+    }, slidingSpeed * 1000);
+  };
 
-    useEffect(() => {
-      let timer;
-      if (autoplay) {
-        timer = setInterval(handleRight, autoplay * 1000);
+  useEffect(() => {
+    btnLeft.current?.style.setProperty("--sliding-speed", slidingSpeed);
+  }, []);
 
-        return () => {
-          clearInterval(timer);
-        };
-      }
-    }, [activeIndex]);
+  useEffect(() => {
+    setTransform({ translateX: -100, transition: 0 });
+    switchBtns(false);
+  }, [activeIndex]);
 
-    return (
-      <div className="carousal_wrapper">
-        <div
-          className="carousal_container"
-          style={{
-            transform: `translateX(${transform.translateX}vw)`,
-            transition: `${transform.transition}s ease all`,
-          }}
-        >
-          {neededImages().map((src, index) => (
-            <Slider src={src} key={index + "slider"} />
-          ))}
-        </div>
-        {autoplay ? null : (
-          <>
-            <button className="controller controller-left" onClick={handleLeft}>
-              <i className="fas fa-chevron-left"></i>
-            </button>
-            <button className="controller controller-right" onClick={handleRight}>
-              <i className="fas fa-chevron-right"></i>
-            </button>
-          </>
-        )}
+  useEffect(() => {
+    let timer;
+    if (autoplay) {
+      timer = setInterval(() => {
+        if (visible) requestAnimationFrame(handleRight);
+      }, autoplay * 1000);
+      return () => {
+        clearInterval(timer);
+      };
+    }
+  }, [activeIndex, visible]);
+
+  return (
+    <div className="carousal_wrapper" ref={elRef}>
+      <div
+        className="carousal_container"
+        style={{
+          transform: `translateX(${transform.translateX}vw)`,
+          transition: `${transform.transition * 1000}ms ease all`,
+        }}
+      >
+        {neededImages().map((item, index) => (
+          <Slider {...item} key={index + "slider"} />
+        ))}
       </div>
-    );
+      <>
+        <button
+          className="controller controller-left"
+          ref={btnLeft}
+          onClick={handleLeft}
+        >
+          <i className="fas fa-chevron-left"></i>
+        </button>
+        <button
+          className="controller controller-right"
+          ref={btnRight}
+          onClick={handleRight}
+        >
+          <i className="fas fa-chevron-right"></i>
+        </button>
+      </>
+    </div>
+  );
 };
 
 export default Carousal;

@@ -26,10 +26,9 @@ const SignUp = () => {
       return;
     }
     try {
-      console.log({displayName});
+      console.log({ displayName });
       let user = await auth.createUserWithEmailAndPassword(email, password);
-       await createUserProfile(user, {displayName});
-     
+      await createUserProfile(user, { displayName });
     } catch (err) {
       console.log("error:", err);
     }
@@ -43,45 +42,41 @@ const SignUp = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>I Do Not Have An Account</h2>
-      <span>Sign up with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          type="text"
-          name="displayName"
-          id="displayName"
-          label="Display Name"
-          value={fields.displayName}
-          handleChange={handleChange}
-        />
-        <FormInput
-          type="email"
-          name="email"
-          id="email"
-          label="Email"
-          value={fields.email}
-          handleChange={handleChange}
-        />
-        <FormInput
-          type="text"
-          name="password"
-          id="password"
-          label="Password"
-          value={fields.password}
-          handleChange={handleChange}
-        />
-        <FormInput
-          type="text"
-          name="confirmPassword"
-          id="confirmPassword"
-          label="Confirm Password"
-          value={fields.confirmPassword}
-          handleChange={handleChange}
-        />
-        <Button type="submit">SIGN UP</Button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <FormInput
+        type="text"
+        name="displayName"
+        id="displayName"
+        label="Display Name"
+        value={fields.displayName}
+        handleChange={handleChange}
+      />
+      <FormInput
+        type="email"
+        name="email"
+        id="email"
+        label="Email"
+        value={fields.email}
+        handleChange={handleChange}
+      />
+      <FormInput
+        type="text"
+        name="password"
+        id="password"
+        label="Password"
+        value={fields.password}
+        handleChange={handleChange}
+      />
+      <FormInput
+        type="text"
+        name="confirmPassword"
+        id="confirmPassword"
+        label="Confirm Password"
+        value={fields.confirmPassword}
+        handleChange={handleChange}
+      />
+      <Button type="submit">SIGN UP</Button>
+    </form>
   );
 };
 

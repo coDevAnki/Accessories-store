@@ -21,7 +21,7 @@ const INIT_STATE = {
       "https://res.cloudinary.com/codevanki/image/upload/v1601534108/images/earfins_e6_ywhxqz.webp",
     size: "large",
     id: 4,
-    linkUrl: "shop/earplugs",
+    linkUrl: "shop/earphones",
   },
 };
 

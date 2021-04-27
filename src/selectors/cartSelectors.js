@@ -19,3 +19,6 @@ export const selectCartHidden = createSelector(
   selectCart,
   (cart) => cart.hidden
 );
+
+export const getItemInCartById=(itemId)=> createSelector(selectCartItems, (cartItems) =>
+  cartItems.find(({id})=> id===itemId)?.quantity);

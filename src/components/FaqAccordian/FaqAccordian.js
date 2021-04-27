@@ -44,7 +44,6 @@ const FaqAccordian = (items = data) => {
       setActive(active.filter((ind) => index !== ind));
     } else setActive([...active, index]);
   };
-  console.log(active);
   return (
     <div className="accordian-holder">
       {data.map((item, index) => (

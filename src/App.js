@@ -2,7 +2,6 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
-import "./App.scss";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import LoadingSoundbar from "./components/LoadingSoundbar/LoadingSoundbar";
@@ -15,6 +14,7 @@ import {
 } from "./redux/actions";
 import { selectCartItems } from "./selectors/cartSelectors";
 import { selectUser } from "./selectors/userSelectors";
+import "./App.scss";
 
 const CheckoutPage = lazy(() => import("./pages/Checkoutpage/CheckoutPage"));
 const CollectionPage = lazy(() =>
@@ -39,6 +39,7 @@ const App = ({
     "accessories_cart",
     cartItems
   );
+  
   const [storedShop] = useLocalStorage("accessories_shop");
   const [firstRender, setFirstRender] = useState(true);
 
@@ -83,13 +84,12 @@ const App = ({
       <Header />
       <Switch>
         <Suspense fallback={<LoadingSoundbar />}>
-          <Route exact path="/">
+           <Route exact path={["/", "/home/:homePart?"]}>
             <HomePage />
           </Route>
           <Route exact path="/signin">
             {user.currentUser ? <Redirect to="/" /> : <SigninAndSignup />}
           </Route>
-
           <Route path="/checkout">
             <CheckoutPage />
           </Route>
@@ -103,13 +103,13 @@ const App = ({
             path="/shop/:category"
             render={({ match: { params } }) => <CollectionPage {...params} />}
           />
-          <Route
-            path="/shop/:category/:nameId"
-            render={({ match: { params } }) => <ItemPage params={params} />}
+          <Route path="/shop/:category/:nameId"     
+            render={({ match: { params } }) => <ItemPage {...params} />} 
           />
-          <Route path="/contact">
+          <Route path="/contact/:contactPart?">
             <ContactPage />
           </Route>
+         
         </Suspense>
       </Switch>
       <Footer />

@@ -1,12 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.scss";
-import {Link} from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer class="footer-row">
       <div className="footer-column">
-        <h2>shop</h2>
+        <h3>shop</h3>
         <ul>
           <li>
             <Link to="/shop/earphones">Earphones</Link>
@@ -20,27 +20,27 @@ const Footer = () => {
         </ul>
       </div>
       <div className="footer-column">
-        <h2>about</h2>
+        <h3>about</h3>
         <ul>
           <li>
-            <Link to="/">Vision</Link>
+            <Link to="/home/vision">Vision</Link>
           </li>
           <li>
-            <Link to="/">Products</Link>
+            <Link to="/home/products">Products</Link>
           </li>
         </ul>
       </div>
       <div className="footer-column">
-        <h2>contact</h2>
+        <h3>contact</h3>
         <ul>
           <li>
-            <Link to="/contact">Policy</Link>
+            <Link to="/contact/faq">Faq</Link>
           </li>
           <li>
-            <Link to="/contact">Faqs</Link>
+            <Link to="/contact/info">Info</Link>
           </li>
           <li>
-            <Link to="/contact">Info</Link>
+            <Link to="/contact/talk-to-us">Talk To Us</Link>
           </li>
         </ul>
       </div>

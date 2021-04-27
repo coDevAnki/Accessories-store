@@ -7,7 +7,7 @@ import "./CollectionPage.scss";
 const CollectionPage = ({ collection, category }) => {
   return collection ? (
     <div className="collection-page reveal">
-      <div onClick={() => {}}>
+      <div className="global-container">
         <h2 className="title">{collection.title}</h2>
         <div className="items">
           <div className="item-area">

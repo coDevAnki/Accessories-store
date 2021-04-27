@@ -11,11 +11,16 @@ const PreviewCollection = ({ title, items, routeName }) => {
         {items
           .filter((item, index) => index < 4)
           .map((item) => (
-            <CollectionItem key={item.id} forPage="preview" category={title} item={item} />
+            <CollectionItem
+              key={item.id}
+              forPage="preview"
+              category={title}
+              item={item}
+            />
           ))}
       </div>
       <Link to={`/shop/${routeName}`} className="view_all_link">
-        VIEW ALL
+        VIEW ALL <i className="fas fa-arrow-right"></i>
       </Link>
     </div>
   );

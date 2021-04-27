@@ -1,10 +1,24 @@
 import React from "react";
 import "./Carousal.scss";
 
-const Slider = ({ src, alt = "altimage" }) => {
+const Slider = ({ src, srcset, text, position, alt = "altimage" }) => {
   return (
     <div className="slider_img">
-      <img src={src} alt={alt} />
+      <picture>
+        {srcset
+          ? srcset.map(({ srcset, media }, index) => (
+              <source
+                key={`slider-srcset ${index}`}
+                srcset={srcset}
+                media={media}
+              ></source>
+            ))
+          : null}
+        <img src={src} alt={alt} />
+      </picture>
+      <div className={`overlay-text${position ? " " + position : ""}`}>
+        <span className="reveal">{text}</span>
+      </div>
     </div>
   );
 };

@@ -1,29 +1,33 @@
+@use "../../scss/mixins";
+
 .collection-footer {
+  @include mixins.flex(column, center, baseline);
   width: 100%;
   font-size: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-}
-.preview {
+  font-weight: 600;
+  background-color: var(--lightest-grey);
+
   .name {
-    font-size: 1.5rem;
-    margin-bottom: 0.5em;
+    text-transform: capitalize;
+    font-size: 2.1rem;
+    padding: 1.5rem;
+    line-height: 1.7;
+    letter-spacing: 0.1em;
   }
   .price {
-    font-size: 1rem;
+    font-size: 1.9rem;
+    padding: 1.5rem;
+    white-space: nowrap;
   }
-}
-.shop {
-  width: 100%;
-  background-color: rgb(120, 120, 120);
-  color: white;
-  margin-bottom: 30px;
-  padding: 0.6rem;
-  .name {
-    font-size: 1.5rem;
-    font-style: italic;
+
+  .for-preview {
+    width: 100%;
+    @include mixins.flex(row, space-between);
+  }
+
+  .for-shop {
+    width: 100%;
+    @include mixins.flex(column);
   }
 }

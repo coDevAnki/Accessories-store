@@ -16,11 +16,11 @@ import "./Header.scss";
 
 const Header = ({ currentUser, hidden, totalCartItems, toggleCartAction }) => {
   return (
-    <div className="header">
+    <header className="header">
       <Link className="logo-container" to="/">
         <Logo />
       </Link>
-      <div className="options">
+      <nav className="options">
         <Link className="option" to="/shop">
           SHOP
         </Link>
@@ -41,12 +41,12 @@ const Header = ({ currentUser, hidden, totalCartItems, toggleCartAction }) => {
             SIGN IN
           </Link>
         )}
-        <div className="cart-logo-container" onClick={toggleCartAction}>
-          <CartIcon number={totalCartItems} />
-        </div>
+      </nav>
+      <div className="logo-container" onClick={toggleCartAction}>
+        <CartIcon number={totalCartItems} />
       </div>
       {hidden ? null : <CartDropdown />}
-    </div>
+    </header>
   );
 };
 

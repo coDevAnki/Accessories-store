@@ -1,5 +1,7 @@
 .cart-items-container {
-  font-size: 1rem;
+  font-size: 1.4rem;
+  height: 35%;
+  padding: 1rem;
   display: flex;
   align-items: center;
 
@@ -8,5 +10,8 @@
     width: 50%;
     height: 80%;
     background-color: whitesmoke;
+  }
+  .cart-item-details {
+    padding: 0 1rem;
   }
 }

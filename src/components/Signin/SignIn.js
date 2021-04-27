@@ -24,33 +24,30 @@ const SignIn = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Already have an account</h2>
-      <span>Sign in with your email and password</span>
-      <form onSubmit={handleSubmit}>
-        <FormInput
-          name="email"
-          id="useremail"
-          type="email"
-          label="Email"
-          value={fields.email}
-          handleChange={handleChange}
-        />
+    <form onSubmit={handleSubmit}>
+      <FormInput
+        name="email"
+        id="useremail"
+        type="email"
+        label="Email"
+        value={fields.email}
+        handleChange={handleChange}
+      />
 
-        <FormInput
-          name="password"
-          id="userpassword"
-          type="text"
-          label="Password"
-          value={fields.password}
-          handleChange={handleChange}
-        />
-        <div className="buttons">
-          <Button type="submit">SIGN IN</Button>
-          <Button onClick={siginWithGoogle}>SIGN IN WITH GOOGLE</Button>
-        </div>
-      </form>
-    </div>
+      <FormInput
+        name="password"
+        id="userpassword"
+        type="text"
+        label="Password"
+        value={fields.password}
+        handleChange={handleChange}
+      />
+      <div className="buttons">
+        <Button type="submit">SIGN IN</Button>
+        <div>or</div>
+        <Button onClick={siginWithGoogle}>SIGN IN WITH GOOGLE</Button>
+      </div>
+    </form>
   );
 };
 

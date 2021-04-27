@@ -14,3 +14,4 @@ export const selectItem = (category, urlParam) =>
   createSelector(shopSelector, (shop) =>
     shop[category.toLowerCase()]?.items?.find((item) => item.id === urlParam)
   );
+

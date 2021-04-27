@@ -1,36 +1,30 @@
+@use "../../scss/mixins";
+
 .header {
-  height: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  font-size: 1.2rem;
+  @include mixins.flex(row, space-between, flex-end);
+  margin-bottom: 2.5rem;
+  font-size: 1.7rem;
   position: relative;
   .logo-container {
-    height: 100%;
-    width: 70px;
-    padding: 10px;
-    text-decoration: none;
-  }
-  .cart-logo-container {
-    width: 45px;
-    height: 45px;
+    height: 5rem;
+    width: 5rem;
     margin: 10px;
     cursor: pointer;
   }
-
   .options {
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: baseline;
-    justify-content: flex-end;
-
+    width: 100%;
+    justify-content: space-around;
+    @include mixins.flex(row, space-evenly, baseline);
     .option {
-      padding: 10px 15px;
+      padding: 0px 1rem;
       text-decoration: none;
-      color: "black";
-      cursor: pointer;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      transition: 0.3s ease opacity;
+
+      &:hover {
+        opacity: 0.6;
+      }
     }
   }
 }

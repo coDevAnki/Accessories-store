@@ -17,9 +17,7 @@ export const removeFromCartHelper = (state, item) => {
   const isOneInCart = state.cartItems.some(
     (cartItem) => cartItem.id === item.id && cartItem.quantity === 1
   );
-  console.log("isOne: ", isOneInCart);
-  console.log("isMult: ", isMultipleCart);
-
+ 
   if (isMultipleCart) {
     return state.cartItems.map((cartItem) => {
       if (cartItem.id === item.id)
