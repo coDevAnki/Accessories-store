@@ -18,7 +18,7 @@ import { selectUser } from "./selectors/userSelectors";
 
 const CheckoutPage = lazy(() => import("./pages/Checkoutpage/CheckoutPage"));
 const CollectionPage = lazy(() =>
-  import("./pages/Collectionpage/CollectionPage")
+  import("./pages/CollectionPage/CollectionPage")
 );
 const ContactPage = lazy(() => import("./pages/Contactpage/ContactPage"));
 const HomePage = lazy(() => import("./pages/Homepage/HomePage"));
