@@ -19,7 +19,7 @@ const HomePage = () => {
 
   return (
     <div className="homepage reveal">
-      <Carousal allImages={images} active={3} />
+      <Carousal allImages={images} autoplay={5} active={0} />
       <div className="global-container" ref={homePageRef}>
         <Directory />
         <div className="stories_container">
