@@ -7,11 +7,20 @@ const Slider = ({ src, srcset, text, position, alt = "altimage" }) => {
       <picture>
         {srcset
           ? srcset.map(({ srcset, media }, index) => (
-              <source
-                key={`slider-srcset ${index}`}
-                srcset={srcset}
-                media={media}
-              ></source>
+              <>
+                <source
+                  key={`slider-srcset ${index}`}
+                  srcset={`${srcset}.webp`}
+                  media={media}
+                  type="image/webp"
+                ></source>
+                <source
+                  key={`slider-srcset ${index}`}
+                  srcset={`${srcset}.jpg`}
+                  media={media}
+                  type="image/jpg"
+                ></source>
+              </>
             ))
           : null}
         <img src={src} alt={alt} />
