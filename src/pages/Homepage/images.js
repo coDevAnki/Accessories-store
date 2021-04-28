@@ -2,9 +2,7 @@ const images = [
   {
     src:
       "https://res.cloudinary.com/codevanki/image/upload/v1609042569/images/STATUS_about-flat-products_1400x_m3s24v.jpg",
-
     text: "Brand that Defines the Vision of Sound",
-
     position: "center",
   },
   {

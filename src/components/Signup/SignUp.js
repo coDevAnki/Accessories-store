@@ -11,9 +11,11 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const [error, setError] = useState("");
   const handleChange = (e) => {
-    e.preventDefault();
+    if (error) {
+      setError("");
+    }
     let { name, value } = e.target;
     setFields({ ...fields, [name]: value });
   };
@@ -30,7 +32,7 @@ const SignUp = () => {
       let user = await auth.createUserWithEmailAndPassword(email, password);
       await createUserProfile(user, { displayName });
     } catch (err) {
-      console.log("error:", err);
+      setError(err.message);
     }
 
     setFields({
@@ -43,6 +45,7 @@ const SignUp = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className="form-error">{error}</div>
       <FormInput
         type="text"
         name="displayName"

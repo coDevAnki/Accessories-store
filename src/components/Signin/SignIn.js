@@ -6,6 +6,7 @@ import "./SignIn.scss";
 
 const SignIn = () => {
   const [fields, setFields] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,16 +16,21 @@ const SignIn = () => {
       setFields({ email: "", password: "" });
     } catch (err) {
       console.log("error: ", err);
+      setError(err.message);
     }
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (error) {
+      setError("");
+    }
     setFields({ ...fields, [name]: value });
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      <div className="form-error">{error}</div>
       <FormInput
         name="email"
         id="useremail"
@@ -47,6 +53,7 @@ const SignIn = () => {
         <div>or</div>
         <Button onClick={siginWithGoogle}>SIGN IN WITH GOOGLE</Button>
       </div>
+      <div className="form_error"></div>
     </form>
   );
 };
