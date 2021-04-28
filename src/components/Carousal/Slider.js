@@ -15,7 +15,7 @@ const Slider = ({ src, srcset, text, position, alt = "altimage" }) => {
                   type="image/webp"
                 ></source>
                 <source
-                  key={`slider-srcset ${index}`}
+                  key={`slider-srcset ${index + 10}`}
                   srcset={`${srcset}.jpg`}
                   media={media}
                   type="image/jpg"
